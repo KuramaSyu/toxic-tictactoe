@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/paulzenker/Projekte/1_3/main'
+relocations:     []
+...
