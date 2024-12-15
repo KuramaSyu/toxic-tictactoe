@@ -44,6 +44,17 @@ void print_board(board *b);
 cell ask_move(board *b);
 
 
+/* starts the game. make_turn() calls itself as long as the game is not over. 
+If you want to check, if error handling is done correctly, you probably want to look
+at the function ask_move() */
+int main(void) {
+    board b = new_board();
+    printf("Player 1 is human, Player 2 is bot.\n");
+    print_board(&b);
+    make_turn(&b);
+    return 0;
+} 
+
 /* generates a board with random beginner */
 board new_board(void) {
     board b;
@@ -59,14 +70,6 @@ board new_board(void) {
     return b;
 }
 
-/* starts the game. make_turn() calls itself as long as the game is not over. */
-int main(void) {
-    board b = new_board();
-    printf("Player 1 is human, Player 2 is bot.\n");
-    print_board(&b);
-    make_turn(&b);
-    return 0;
-} 
 
 /* calculates fastest win for slowest lose for bot or asks the user 
 where to place the tick */
@@ -107,7 +110,6 @@ void make_turn(board *b) {
         b->current_player = (b->current_player == 1) ? 2 : 1;
         make_turn(b);
     }
-
     return;
 }
 
