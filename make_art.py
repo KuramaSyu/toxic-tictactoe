@@ -12,4 +12,5 @@ i = r"""
 +-------------------------------------------+
 """
 for line in i.splitlines():
+    line = line.replace("\\", "\\\\")
     print(f'printf("{line}\\n");')
