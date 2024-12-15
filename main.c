@@ -279,28 +279,32 @@ cell ask_move(board *b) {
     cell c;
     char col;
     int row;
+    fflush(stdin);
     printf("Enter your move (e.g., A1, B2): ");
-    scanf(" %c%d", &col, &row);
+    if (scanf(" %c%d", &col, &row) != 2) {
+        printf("Invalid input. Please use Format <A-C><1-3>.\n");
+        return ask_move(b);
+    }
     /* make col upper */
     col = toupper(col);
     if (col != 'A' && col != 'B' && col != 'C') {
-        printf("Invalid column. Please enter A, B, or C.\n");
+        printf("Invalid letter. Please enter A, B, or C.\n");
         return ask_move(b);
-    }
-    if (row < 1 || row > 3) {
-        printf("Invalid row. Please enter 1, 2, or 3.\n");
+    } else if (row < 1 || row > 3) {
+        printf("Invalid number. Please enter 1, 2, or 3.\n");
         return ask_move(b);
-    }
-    if (b->board[row-1][col-'A'] != 0) {
+    } else if (b->board[row-1][col-'A'] != 0) {
         printf("Take anther cell\n");
         return ask_move(b);
+    } else {
+        /* map A to 1, b to 2, c to 3 */ 
+        c.col = col - 'A';  /* substracting ASCCI A results in number 0-2 */
+        c.row = row - 1;
+        c.score = -10; /* just init it. For the player the score does not matter */
+        return c;
     }
-    /* map A to 1, b to 2, c to 3 */ 
-    c.col = col - 'A';  /* substracting ASCCI A results in number 0-2 */
-    c.row = row - 1;
-    c.score = -10; /* just init it. For the player the score does not matter */
-    return c;
 }
+
 
 
 /* Ascii arts */
